@@ -36,21 +36,33 @@ public class MainMenu {
       frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
       frame.setVisible(true);
       frame.setResizable(true);
-      frame.setSize(200, 50);
+      frame.setSize(400,400);
       frame.setLocation(500, 500);
-      
-   }
-   
-   public JMenuBar createMenuBar() {
-      //JButton okButton = new JButton("OK");
-   
-      JButton button = new JButton("Click");
+      JButton button = new JButton("Begin Game");
       button.addActionListener(
             new ActionListener() {
                public void actionPerformed(ActionEvent e) {
                   System.out.println("thingIWantToUse");
                }
             });
+      button.setSize(new Dimension(40, 40));
+      frame.add(button);
+      
+      JButton settings = new JButton("Settings");
+      settings.addActionListener(
+            new ActionListener() {
+               public void actionPerformed(ActionEvent e) {
+                  System.out.println("thingIWantToUs SETTINGSe");
+               }
+            });
+      settings.setSize(new Dimension(40, 40));
+      frame.add(settings);
+   }
+   
+   public JMenuBar createMenuBar() {
+      //JButton okButton = new JButton("OK");
+   
+   
       JMenuBar menuBar;
       JMenu menu, submenu;
       JMenuItem menuItem;
@@ -71,8 +83,11 @@ public class MainMenu {
       menuItem = new JMenuItem("A text-only menu item", KeyEvent.VK_T);
       menuItem.addActionListener(
             new ActionListener() {  
-            
+               public void actionPerformed(ActionEvent e) {
+                  System.out.println("OTHERthingIWantToUse");
+               }
             });
+            
       
          //menuItem.setMnemonic(KeyEvent.VK_T); //used constructor instead
       menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
