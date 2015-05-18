@@ -24,6 +24,8 @@ final public class TesterForJavaSwing {
    DrawPanel drawPanel;
    private int oneX;
    private int oneY;
+   
+   public  color
 
    
    int bob = 1;
@@ -58,6 +60,7 @@ final public class TesterForJavaSwing {
       
          g.setColor(Color.WHITE);
          g.fillRect(6, 6, this.getWidth()-12, this.getHeight()-12);
+         /*
          if (bob%25 >= 0 && bob%25 <= 5) {
             g.setColor(Color.RED);
          } 
@@ -73,6 +76,8 @@ final public class TesterForJavaSwing {
          else {
             g.setColor(Color.MAGENTA);
          }
+         
+         */
          bob++;
          g.drawOval(oneX, oneY, 30, 30);
          g.fillPolygon(new int[]{oneX+15, oneX+24, oneX+2, oneX+28, oneX+6}, new int[]{oneY, oneY+27, oneY+10, oneY+10, oneY+27}, 5);
