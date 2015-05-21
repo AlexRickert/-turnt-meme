@@ -37,7 +37,8 @@ public class MainMenu {
       frame.setVisible(true);
       frame.setResizable(true);
       frame.setSize(400,400);
-      frame.setLocation(500, 500);
+      frame.setLocation(450, 350);
+      
       JButton button = new JButton("Begin Game");
       button.addActionListener(
             new ActionListener() {
@@ -45,23 +46,10 @@ public class MainMenu {
                   System.out.println("thingIWantToUse");
                }
             });
-      button.setSize(new Dimension(40, 40));
       frame.add(button);
-      
-      JButton settings = new JButton("Settings");
-      settings.addActionListener(
-            new ActionListener() {
-               public void actionPerformed(ActionEvent e) {
-                  System.out.println("thingIWantToUs SETTINGSe");
-               }
-            });
-      settings.setSize(new Dimension(40, 40));
-      frame.add(settings);
    }
    
    public JMenuBar createMenuBar() {
-      //JButton okButton = new JButton("OK");
-   
    
       JMenuBar menuBar;
       JMenu menu, submenu;
@@ -73,51 +61,69 @@ public class MainMenu {
       menuBar = new JMenuBar();
       
         //Build the first menu.
-      menu = new JMenu("A Menu");
+      menu = new JMenu("Settings");
       
          //menu.setMnemonic(KeyEvent.VK_A);
       menu.getAccessibleContext().setAccessibleDescription("The only menu in this program that has menu items");
       menuBar.add(menu);
-      
-         //a group of JMenuItems
-      menuItem = new JMenuItem("A text-only menu item", KeyEvent.VK_T);
-      menuItem.addActionListener(
+         
+         //a group of check box menu items
+      menu.addSeparator();
+      cbMenuItem = new JCheckBoxMenuItem("Super Fast Mode");
+      cbMenuItem.setMnemonic(KeyEvent.VK_C);
+      cbMenuItem.addActionListener(
             new ActionListener() {  
-               public void actionPerformed(ActionEvent e) {
-                  System.out.println("OTHERthingIWantToUse");
+               public void actionPerformed(ItemEvent e) {
+                  System.out.println("MAKE IT FASST");
                }
             });
-            
+      //MAKE THIS ONE DOUBLE THE SPEED SOMEHOW
       
-         //menuItem.setMnemonic(KeyEvent.VK_T); //used constructor instead
-      menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
-      menuItem.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
-      menu.add(menuItem);
+      menu.add(cbMenuItem);
       
-         //ImageIcon icon = createImageIcon("images/middle.gif");
-         //menuItem = new JMenuItem("Both text and icon", icon);
-      menuItem.setMnemonic(KeyEvent.VK_B);
-      menu.add(menuItem);
-      
-         //menuItem = new JMenuItem(icon);
-      menuItem.setMnemonic(KeyEvent.VK_D);
-      menu.add(menuItem);
-      
-           //a group of check box menu items
+      //a group of radio button menu items
       menu.addSeparator();
-      cbMenuItem = new JCheckBoxMenuItem("A check box menu item");
-      cbMenuItem.setMnemonic(KeyEvent.VK_C);
-      menu.add(cbMenuItem);
+      ButtonGroup group = new ButtonGroup();
+      rbMenuItem = new JRadioButtonMenuItem("RED BALL"); //SET THE BALL COLOR TO RED
+      rbMenuItem.addActionListener(
+            new ActionListener() {  
+               public void actionPerformed(ActionEvent e) {
+                  System.out.println("IS THE BALL RED NOW");
+               }
+            });
+      rbMenuItem.setSelected(true);
+      rbMenuItem.setMnemonic(KeyEvent.VK_R);
+      group.add(rbMenuItem);
+      menu.add(rbMenuItem);
+   
+      rbMenuItem  = new JRadioButtonMenuItem("GREEN BALL"); //SET THE BALL COLOR TO GREEN
       
-      cbMenuItem = new JCheckBoxMenuItem("Another one");
-      cbMenuItem.setMnemonic(KeyEvent.VK_H);
-      menu.add(cbMenuItem);
+      rbMenuItem.addActionListener(
+            new ActionListener() {  
+               public void actionPerformed(ActionEvent e) {
+                  System.out.println("THE BALL IS NOW GREEN");
+               }
+            });
       
-           //Build second menu in the menu bar.
-      menu = new JMenu("Another Menu");
-      menu.setMnemonic(KeyEvent.VK_N);
-      menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
-      menuBar.add(menu);
+      rbMenuItem.setSelected(true);
+      rbMenuItem.setMnemonic(KeyEvent.VK_G);
+      group.add(rbMenuItem);
+      menu.add(rbMenuItem);
+      
+      rbMenuItem = new JRadioButtonMenuItem("BLUE BALL");//SET THE BALL COLOR TO BLUE
+      
+      rbMenuItem.addActionListener(
+            new ActionListener() {  
+               public void actionPerformed(ActionEvent e) {
+                  System.out.println("THE BALL IS NOW BLUE! BLUE BALLS");
+               }
+            });
+      
+      rbMenuItem.setMnemonic(KeyEvent.VK_B);
+      group.add(rbMenuItem);
+      menu.add(rbMenuItem);
+      
+   
       
       return menuBar;
    }
