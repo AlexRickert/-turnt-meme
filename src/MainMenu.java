@@ -73,10 +73,12 @@ public class MainMenu {
       cbMenuItem.setMnemonic(KeyEvent.VK_C);
       cbMenuItem.addActionListener(
             new ActionListener() {  
-               public void actionPerformed(ItemEvent e) {
-                  System.out.println("MAKE IT FASST");
-               }
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    System.out.println("MAKE IT FASST");
+                }
             });
+            
       //MAKE THIS ONE DOUBLE THE SPEED SOMEHOW
       
       menu.add(cbMenuItem);

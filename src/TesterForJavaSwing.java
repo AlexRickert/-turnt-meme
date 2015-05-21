@@ -25,7 +25,7 @@ final public class TesterForJavaSwing {
    private int oneX;
    private int oneY;
    
-   public  color
+   //public  color
 
    
    int bob = 1;
