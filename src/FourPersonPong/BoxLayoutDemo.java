@@ -1,4 +1,5 @@
-package layout;
+package FourPersonPong;
+
 import java.awt.Component;
 import java.awt.Container;
 import javax.swing.BoxLayout;

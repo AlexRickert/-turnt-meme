@@ -1,3 +1,4 @@
+package FourPersonPong;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -34,12 +35,12 @@ final public class TesterForJavaSwing {
    boolean down = false;
    boolean left = false;
    boolean right = true;
-
+/*
    public static void main(String[] args) {
       new TesterForJavaSwing().go();
    }
-
-   private void go() {
+*/
+   public void go() {
       frame = new JFrame("IT BOUNCES");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       
