@@ -1,4 +1,4 @@
-package FourPErsonPong;
+package FourPersonPong;
 
 import java.awt.*;
 import java.awt.event.*;

@@ -4,9 +4,12 @@
  */
 package my.contacteditor;
 
+import javax.swing.*;
+
 /**
  *
  * @author ros_Asrickert
+ *
  */
 public class ContactEditorUI extends javax.swing.JFrame {
 
@@ -16,6 +19,10 @@ public class ContactEditorUI extends javax.swing.JFrame {
     public ContactEditorUI() {
         initComponents();
     }
+    public boolean speed = false;
+    public static ContactEditorUI menu = new ContactEditorUI();
+    public JPanel tim = (JPanel)getContentPane();
+    public JPanel tom = new JPanel();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -24,6 +31,10 @@ public class ContactEditorUI extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    public boolean getSpeed() {
+        return speed;
+    }
+
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
@@ -65,7 +76,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
         jLabel2.setText("Settings");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        tim.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -112,11 +123,24 @@ public class ContactEditorUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         new FourPersonPong.TesterForJavaSwing().go();
+        //menu.setVisible(false);
+        System.out.println("WHATU P");
+        //new FourPersonPong.TesterForJavaSwing().go();
+        tim.setVisible(false);
+        tom.add(new JLabel("hello"));
+        add(tom);
+        tom.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
+        if (speed) {
+            speed = false;
+            System.out.println(speed);
+        } else {
+            speed = true;
+            System.out.println(speed);
+        }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**
@@ -145,11 +169,10 @@ public class ContactEditorUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ContactEditorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ContactEditorUI().setVisible(true);
+                menu.setVisible(true);
             }
         });
     }

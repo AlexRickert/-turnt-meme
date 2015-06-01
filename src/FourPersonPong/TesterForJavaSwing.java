@@ -1,5 +1,7 @@
 package FourPersonPong;
 
+import my.contacteditor.ContactEditorUI;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.ActionEvent;
@@ -35,11 +37,11 @@ final public class TesterForJavaSwing {
    boolean down = false;
    boolean left = false;
    boolean right = true;
-/*
+
    public static void main(String[] args) {
       new TesterForJavaSwing().go();
    }
-*/
+
    public void go() {
       frame = new JFrame("IT BOUNCES");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,6 +90,8 @@ final public class TesterForJavaSwing {
 
    private void moveIt() {
       while(true){
+
+         //BALL
          if(oneX >= frame.getSize().getWidth()-40){
             right = false;
             left = true;
@@ -116,6 +120,8 @@ final public class TesterForJavaSwing {
          if(right){
             oneX+=.0035 * frame.getSize().getWidth();
          }
+         //BALL
+
          try{
             Thread.sleep(10);
          } 
