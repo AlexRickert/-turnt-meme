@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 
 /**
  * Created by ros_asrickert on 5/29/2015.
@@ -22,27 +23,34 @@ public class ActuallyMain {
     private JRadioButton jRadioButton2;
     private JRadioButton jRadioButton3;
     private boolean speed = false;
+    listener heyListen;
     JLayeredPane mainPanel = new JLayeredPane();
     private boolean red = true;
     private boolean blue = false;
     private boolean green = false;
-    private int BallOneX;
-    private int BallOneY;
+    private int BallOneX = 150;
+    private int BallOneY = 250;
+    private int Player1Points = 0;
+    private int Player2Points = 0;
+    private int Player3Points = 0;
+    private int Player4Points = 0;
 
-    private int Paddle1x;
-    private boolean Paddle1Right = true;
+    private int Paddle1x = 150;
+    private int Paddle1Right = 0;
 
-    private int Paddle2Y;
-    private boolean Paddle2Up = true;
+    private int Paddle2Y = 200;
+    private int Paddle2Up = 0;
 
-    private int Paddle3x;
-    private boolean Paddle3Right = true;
+    private int Paddle3x = 550;
+    private int Paddle3Right = 0;
 
-    private int Paddle4Y;
-    private boolean Paddle4Up = true;
+    private int Paddle4Y = 400;
+    private int Paddle4Up = 0;
 
-    boolean up = true;
-    boolean down = false;
+    private int randomSlope;
+
+    boolean up = false;
+    boolean down = true;
     boolean left = false;
     boolean right = true;
 
@@ -50,86 +58,226 @@ public class ActuallyMain {
         new ActuallyMain().run();
     }
 
+    public class listener extends JPanel {
+        public listener() {
+            KeyListener tom = new IsKeyListener();
+            addKeyListener(tom);
+            setFocusable(true);
+        }
 
+        public class IsKeyListener implements KeyListener {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
 
-    public void keyPressed(KeyEvent e) {
-        System.out.println(e);
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_D) {
+                    Paddle1Right = 1;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_A) {
+                    Paddle1Right = -1;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_U) {
+                    Paddle2Up = 1;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_J) {
+                    Paddle2Up = -1;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    Paddle3Right = 1;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    Paddle3Right = -1;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_NUMPAD5) {
+                    Paddle4Up = -1;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+                    Paddle4Up = 1;
+                }
+//a
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                System.out.println("keyReleased="+KeyEvent.getKeyText(e.getKeyCode()));
+                if (e.getKeyCode() == KeyEvent.VK_D) {
+                    Paddle1Right = 0;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_A) {
+                    Paddle1Right = 0;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_U) {
+                    Paddle2Up = 0;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_J) {
+                    Paddle2Up = 0;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    Paddle3Right = 0;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    Paddle3Right = 0;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_NUMPAD5) {
+                    Paddle4Up = 0;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+                    Paddle4Up = 0;
+                }
+            }
+        }
     }
 
     private void moveIt() {
-        while(true){
+        while(true) {
+
+
             //BALL
-            if(BallOneX >= 715){
+            if (BallOneX >= 715) {
+                Player2Points += 1;
+                System.out.println("Player Two Loses!!!");
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            }
+            if (BallOneX <= 0) {
+                Player4Points += 1;
+                System.out.println("Player Four Loses!!!");
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            }
+            if (BallOneY >= 695) {
+                Player3Points += 1;
+                System.out.println("Player Three Loses!!!");
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            }
+            if (BallOneY <= 0) {
+                Player1Points += 1;
+                System.out.println("Player One Loses!!!");
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            }
+
+            //BOUNCY SHIT
+            if (BallOneX >= 655 && BallOneY >= Paddle2Y && BallOneY <= Paddle2Y + 175) {
                 right = false;
                 left = true;
+                randomSlope = ((int) (Math.random() * 10)) /2;
             }
-            if(BallOneX <= 0){
+            if (BallOneX <= 45 && BallOneY >= Paddle4Y && BallOneY <= Paddle4Y + 175) {
                 right = true;
                 left = false;
+                randomSlope = ((int) (Math.random() * 10)) /2;
             }
-            if(BallOneY >= 695){
+            if (BallOneY >= 645 && BallOneX >= Paddle3x && BallOneX <= Paddle3x + 175) {
                 up = true;
                 down = false;
+                randomSlope = ((int) (Math.random() * 10)) /2;
             }
-            if(BallOneY <= 0){
+            if (BallOneY <= 45 && BallOneX >= Paddle1x && BallOneX <= Paddle3x + 175) {
                 up = false;
                 down = true;
+                randomSlope = ((int) (Math.random() * 10)) / 2;
             }
-            if(up){
-                if(speed) {
-                    BallOneY -= 10;
+            System.out.println(randomSlope);
+            if (up) {
+                if (speed) {
+                    BallOneY -= 6;
                 } else {
-                    BallOneY -= 5;
+                    BallOneY -= 2;
+                    BallOneY -= randomSlope;
                 }
             }
-            if(down){
-                if(speed) {
-                    BallOneY += 10;
+            if (down) {
+                if (speed) {
+                    BallOneY += 6;
                 } else {
-                BallOneY += 5;
+                    BallOneY += 2;
+                    BallOneY += randomSlope;
                 }
             }
-            if(left){
-                if(speed) {
-                    BallOneX -= 10;
+            if (left) {
+                if (speed) {
+                    BallOneX -= 6;
                 } else {
-                    BallOneX -= 5;
+                    BallOneX -= 2;
+                    BallOneX -= randomSlope;
                 }
             }
-            if(right){
-                if(speed) {
-                    BallOneX += 10;
+            if (right) {
+                if (speed) {
+                    BallOneX += 6;
                 } else {
-                    BallOneX += 5;
+                    BallOneX += 2;
+                    BallOneX += randomSlope;
                 }
             }
             //BALL
-
+//
             //PADDLE 1
-            if(Paddle1x >= 720){
-                Paddle1Right = false;
+            if (Paddle1x >= 570) {
+                Paddle1Right = -1;
             }
-            if(Paddle1x <= 0){
-                Paddle1Right = true;
+            if (Paddle1x <= 0) {
+                Paddle1Right = 1;
             }
             //PADDLE 1
+            if (Paddle1Right == 1) {
+                Paddle1x += 4;
+            } else if (Paddle1Right == 0){} else {
+                Paddle1x -= 4;
+            }
 
             //PADDLE 2
-            //ADD IN LATER
+            if(Paddle2Y >= 570){
+                Paddle2Up = 1;
+            }
+            if(Paddle2Y <= 0){
+                Paddle2Up = -1;
+            }
+
             //PADDLE 2
+            if (Paddle2Up == 1) {
+                Paddle2Y -= 4;
+            } else if (Paddle2Up == 0){}
+            else {
+                Paddle2Y += 4;
+            }
 
             //PADDLE 3
-            if(Paddle3x >= 645){
-                Paddle3Right = false;
+            if(Paddle3x >= 570){
+                Paddle3Right = -1;
             }
-            if(Paddle3x <= 10){
-                Paddle3Right = true;
+            if(Paddle3x <= 0){
+                Paddle3Right = 1;
             }
             //PADDLE 3
+            if (Paddle3Right == 1) {
+                Paddle3x += 4;
+            } else if (Paddle3Right == 0){}
+            else {
+                Paddle3x -= 4;
+            }
 
             //PADDLE 4
-            //ADD IN LATER
+            if(Paddle4Y >= 570){
+                Paddle4Up = 1;
+            }
+            if(Paddle4Y <= 0){
+                Paddle4Up = -1;
+            }
+
             //PADDLE 4
+            if (Paddle4Up == 1) {
+                Paddle4Y -= 4;
+            } else if (Paddle4Up == 0){}
+            else {
+                Paddle4Y += 4;
+            }
 
             try{
                 Thread.sleep(10);
@@ -147,10 +295,10 @@ public class ActuallyMain {
             g.fillRect(6, 6, this.getWidth()-12, this.getHeight()-12);
 
             g.setColor(Color.BLACK);
-            g.fillRect(Paddle1x + 200, 30, 175, 20);
-            //ADD PADDLE 2
-            g.fillRect(Paddle3x + 350, 685, 175, 20);
-            //ADD PADDLE 4
+            g.fillRect(Paddle1x , 30, 175, 20);
+            g.fillRect(685, Paddle2Y, 20, 175);
+            g.fillRect(Paddle3x , 685, 175, 20);
+            g.fillRect(30, Paddle4Y, 20, 175);
 
             g.setColor(Color.RED);
 
@@ -226,29 +374,29 @@ public class ActuallyMain {
 
         jRadioButton1.setBounds(0,40,100,40);
         jRadioButton1.setBackground(Color.red);
-        mainPanel.add(jRadioButton1,0);
+    //    mainPanel.add(jRadioButton1,0);
 
         jRadioButton2.setBounds(0,80,100,40);
         jRadioButton2.setBackground(Color.green);
-        mainPanel.add(jRadioButton2,0);
+    //    mainPanel.add(jRadioButton2,0);
 
         jRadioButton3.setBounds(0,120,100,40);
         jRadioButton3.setBackground(Color.cyan);
-        mainPanel.add(jRadioButton3,0);
+    //    mainPanel.add(jRadioButton3,0);
 
         jCheckBox1.setBounds(0,160,100,40);
         jCheckBox1.setBackground(Color.ORANGE);
-        mainPanel.add(jCheckBox1,0);
+    //    mainPanel.add(jCheckBox1,0);
 
-        //mainPanel.addKeyListener(KeyListener);
-
-        jButton1.setBounds(175,125,500,500);
-        mainPanel.add(jButton1,0);
+        jButton1.setBounds(175, 125, 500, 500);
+    //    mainPanel.add(jButton1,0);
         mainPanel.setVisible(true);
-        frame.add(mainPanel, 1);
+        frame.add(mainPanel, 0);
         dP = new DrawPanel();
-        dP.setVisible(false);
+        dP.setVisible(true);
         dP.setBackground(Color.WHITE);
+        heyListen = new listener();
+        frame.add(heyListen);
         frame.add(dP, 0);
         frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(750, 750);
@@ -293,10 +441,6 @@ public class ActuallyMain {
         jCheckBox1.setVisible(false);
         dP.setVisible(true);
 
-
-
-
-        //new FourPersonPong.TesterForJavaSwing().go();
     }
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {
